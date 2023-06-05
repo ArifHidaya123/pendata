@@ -60,8 +60,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tugas-pendat/POHONKEPUTUSAN';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -385,7 +383,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-a274d4c1-b9ce-4b95-94c5-7fbc220d9096">
+  <div id="df-f5cdabee-6252-40fc-aa20-aae080dd9981">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -517,7 +515,7 @@ document.write(`
 </table>
 <p>150 rows × 6 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-a274d4c1-b9ce-4b95-94c5-7fbc220d9096')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-f5cdabee-6252-40fc-aa20-aae080dd9981')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -568,12 +566,12 @@ document.write(`
 
       <script>
         const buttonEl =
-          document.querySelector('#df-a274d4c1-b9ce-4b95-94c5-7fbc220d9096 button.colab-df-convert');
+          document.querySelector('#df-f5cdabee-6252-40fc-aa20-aae080dd9981 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-a274d4c1-b9ce-4b95-94c5-7fbc220d9096');
+          const element = document.querySelector('#df-f5cdabee-6252-40fc-aa20-aae080dd9981');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -614,18 +612,9 @@ dtype: int64
 </div>
 </div>
 </div>
-<p><strong>Menganti nilai yang mengandung tanda tanya (?) menjadi nilai kosong</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_copy</span> <span class="o">=</span> <span class="n">df_copy</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Melakukan cek ulang berapa nilai yang kosong pada data</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_copy</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_copy</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  
 </pre></div>
 </div>
 </div>
@@ -641,11 +630,9 @@ dtype: int64
 </div>
 </div>
 </div>
-<p><strong>Melihat type data pada fitur, jika type datanya bukan numerik atau float maka perlu diganti type datanya</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_copy</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-     
 </pre></div>
 </div>
 </div>
@@ -667,32 +654,39 @@ memory usage: 7.2+ KB
 </div>
 </div>
 </div>
-<p><strong>1. Decision Tree</strong></p>
-<p><em>Import library Decision Tree</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_copy</span> <span class="o">=</span> <span class="n">df_copy</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>1. Metode Decision tree</strong></p>
+<p>mengimport modul yang diperlukan</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">graphviz</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
 <span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">cross_val_score</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p><strong>Melakukan pemisahan fitur dan label target</strong></p>
+<p>memisahkan label target</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_DecisionTree</span> <span class="o">=</span> <span class="n">df_copy</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">df_DecisionTree</span><span class="p">[[</span><span class="s1">&#39;SepalLengthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;SepalWidthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;PetalLengthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;PetalWidthCm&#39;</span><span class="p">]]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">df_DecisionTree</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span>
-     
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_copy</span><span class="p">[[</span><span class="s1">&#39;SepalLengthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;SepalWidthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;PetalLengthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;PetalWidthCm&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df_copy</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p><strong>Membagi dataset menjadi data training dan data testing (0.8/0.2)</strong></p>
+<p>membagi menjadi data training dan data testing</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span>
@@ -700,11 +694,11 @@ memory usage: 7.2+ KB
 </div>
 </div>
 </div>
-<p><strong>Membuat model Decision Tree dengan metode impurity criterion Gini</strong></p>
+<p>membuat model decision tree</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Melakukan klasifikasi Decision Tree dengan kedalaman maksimum 3 dan kriteria pemisahan (splitting) Gini impurity.</span>
-<span class="n">clf_gini</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">criterion</span><span class="o">=</span><span class="s2">&quot;gini&quot;</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># membuat klasifikasi Decision Tree dengan kedalaman maksimum 3 dan kriteria pemisahan (splitting) Gini impurity.</span>
+<span class="n">clf_gini</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">criterion</span><span class="o">=</span><span class="s2">&quot;gini&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># memasukkan model</span>
 <span class="n">clf_gini</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -712,35 +706,45 @@ memory usage: 7.2+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>DecisionTreeClassifier(max_depth=3, random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">DecisionTreeClassifier</label><div class="sk-toggleable__content"><pre>DecisionTreeClassifier(max_depth=3, random_state=0)</pre></div></div></div></div></div></div></div>
+<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>DecisionTreeClassifier(random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">DecisionTreeClassifier</label><div class="sk-toggleable__content"><pre>DecisionTreeClassifier(random_state=42)</pre></div></div></div></div></div></div></div>
 </div>
-<p><strong>Melakukan visualisasi decision tree</strong></p>
+<p>menampilkan visualisasi decision tree</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membuat figure dengan ukuran 12x8 inch (atau sekitar 30x20 cm).</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># membuat figure dengan ukuran 12x8 inch (atau sekitar 30x20 cm).</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 
-<span class="c1"># Membuat visualisasi decision tree</span>
+<span class="c1"># embuat visualisasi decision tree</span>
 <span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">clf_gini</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.375, 0.875, &#39;x[3] &lt;= 0.8\ngini = 0.667\nsamples = 120\nvalue = [40, 41, 39]&#39;),
- Text(0.25, 0.625, &#39;gini = 0.0\nsamples = 40\nvalue = [40, 0, 0]&#39;),
- Text(0.5, 0.625, &#39;x[2] &lt;= 4.75\ngini = 0.5\nsamples = 80\nvalue = [0, 41, 39]&#39;),
- Text(0.25, 0.375, &#39;x[3] &lt;= 1.65\ngini = 0.053\nsamples = 37\nvalue = [0, 36, 1]&#39;),
- Text(0.125, 0.125, &#39;gini = 0.0\nsamples = 36\nvalue = [0, 36, 0]&#39;),
- Text(0.375, 0.125, &#39;gini = 0.0\nsamples = 1\nvalue = [0, 0, 1]&#39;),
- Text(0.75, 0.375, &#39;x[3] &lt;= 1.75\ngini = 0.206\nsamples = 43\nvalue = [0, 5, 38]&#39;),
- Text(0.625, 0.125, &#39;gini = 0.5\nsamples = 8\nvalue = [0, 4, 4]&#39;),
- Text(0.875, 0.125, &#39;gini = 0.056\nsamples = 35\nvalue = [0, 1, 34]&#39;)]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.3076923076923077, 0.9285714285714286, &#39;x[2] &lt;= 2.45\ngini = 0.667\nsamples = 120\nvalue = [40, 41, 39]&#39;),
+ Text(0.23076923076923078, 0.7857142857142857, &#39;gini = 0.0\nsamples = 40\nvalue = [40, 0, 0]&#39;),
+ Text(0.38461538461538464, 0.7857142857142857, &#39;x[2] &lt;= 4.75\ngini = 0.5\nsamples = 80\nvalue = [0, 41, 39]&#39;),
+ Text(0.15384615384615385, 0.6428571428571429, &#39;x[3] &lt;= 1.65\ngini = 0.053\nsamples = 37\nvalue = [0, 36, 1]&#39;),
+ Text(0.07692307692307693, 0.5, &#39;gini = 0.0\nsamples = 36\nvalue = [0, 36, 0]&#39;),
+ Text(0.23076923076923078, 0.5, &#39;gini = 0.0\nsamples = 1\nvalue = [0, 0, 1]&#39;),
+ Text(0.6153846153846154, 0.6428571428571429, &#39;x[3] &lt;= 1.75\ngini = 0.206\nsamples = 43\nvalue = [0, 5, 38]&#39;),
+ Text(0.38461538461538464, 0.5, &#39;x[2] &lt;= 4.95\ngini = 0.5\nsamples = 8\nvalue = [0, 4, 4]&#39;),
+ Text(0.3076923076923077, 0.35714285714285715, &#39;gini = 0.0\nsamples = 2\nvalue = [0, 2, 0]&#39;),
+ Text(0.46153846153846156, 0.35714285714285715, &#39;x[3] &lt;= 1.55\ngini = 0.444\nsamples = 6\nvalue = [0, 2, 4]&#39;),
+ Text(0.38461538461538464, 0.21428571428571427, &#39;gini = 0.0\nsamples = 3\nvalue = [0, 0, 3]&#39;),
+ Text(0.5384615384615384, 0.21428571428571427, &#39;x[2] &lt;= 5.45\ngini = 0.444\nsamples = 3\nvalue = [0, 2, 1]&#39;),
+ Text(0.46153846153846156, 0.07142857142857142, &#39;gini = 0.0\nsamples = 2\nvalue = [0, 2, 0]&#39;),
+ Text(0.6153846153846154, 0.07142857142857142, &#39;gini = 0.0\nsamples = 1\nvalue = [0, 0, 1]&#39;),
+ Text(0.8461538461538461, 0.5, &#39;x[2] &lt;= 4.85\ngini = 0.056\nsamples = 35\nvalue = [0, 1, 34]&#39;),
+ Text(0.7692307692307693, 0.35714285714285715, &#39;x[1] &lt;= 3.1\ngini = 0.444\nsamples = 3\nvalue = [0, 1, 2]&#39;),
+ Text(0.6923076923076923, 0.21428571428571427, &#39;gini = 0.0\nsamples = 2\nvalue = [0, 0, 2]&#39;),
+ Text(0.8461538461538461, 0.21428571428571427, &#39;gini = 0.0\nsamples = 1\nvalue = [0, 1, 0]&#39;),
+ Text(0.9230769230769231, 0.35714285714285715, &#39;gini = 0.0\nsamples = 32\nvalue = [0, 0, 32]&#39;)]
 </pre></div>
 </div>
-<img alt="../_images/a53a006478379ca242883fce0b77e1773d384735a4913b823da57da8c6fde8cb.png" src="../_images/a53a006478379ca242883fce0b77e1773d384735a4913b823da57da8c6fde8cb.png" />
+<img alt="../_images/3d6e903639b162935b789a182326486ed8e29746f4d321a418051d0996a8d71e.png" src="../_images/3d6e903639b162935b789a182326486ed8e29746f4d321a418051d0996a8d71e.png" />
 </div>
 </div>
-<p><strong>Menampilkan visualisasi decision tree dalam bentuk grafik yang berisi informasi seperti fitur yang digunakan, nilai ambang yang digunakan dalam setiap node, dan label kelas yang dihasilkan oleh model.</strong></p>
+<p>Menampilkan visualisasi decision tree dalam bentuk grafik yang berisi informasi seperti fitur yang digunakan, nilai ambang yang digunakan dalam setiap node, dan label kelas yang dihasilkan oleh model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dot_data</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">export_graphviz</span><span class="p">(</span><span class="n">clf_gini</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
@@ -756,9 +760,9 @@ memory usage: 7.2+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/417a1742547efcd9e739b6939491fb887f65871dc914dd9b6443e3a300dc0532.svg" src="../_images/417a1742547efcd9e739b6939491fb887f65871dc914dd9b6443e3a300dc0532.svg" /></div>
+<img alt="../_images/4a68d9b129331b814cac4b5b2af4042fb807783eab19a5ffa4bff7d5590f6fb3.svg" src="../_images/4a68d9b129331b814cac4b5b2af4042fb807783eab19a5ffa4bff7d5590f6fb3.svg" /></div>
 </div>
-<p><strong>Menghitung akurasi Decision Tree</strong></p>
+<p>menghitung akurasi</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># menghitung akurasi pada data training</span>
@@ -768,19 +772,18 @@ memory usage: 7.2+ KB
 <span class="c1"># menghitung akurasi pada data testing</span>
 <span class="n">y_pred_gini</span> <span class="o">=</span> <span class="n">clf_gini</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy on testing set (Gini): </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_gini</span><span class="p">)))</span>
-     
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy on training set (Gini): 0.96
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy on training set (Gini): 1.00
 Accuracy on testing set (Gini): 1.00
 </pre></div>
 </div>
 </div>
 </div>
 <p><strong>2. KNN</strong></p>
-<p><em>Melakukan import library KNN</em></p>
+<p>Import library KNN</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsRegressor</span> 
@@ -789,7 +792,7 @@ Accuracy on testing set (Gini): 1.00
 </div>
 </div>
 </div>
-<p><strong>Melakukan perubahan tipe data kategorial menjadi tipe data numerik</strong></p>
+<p>Mengubah tipe data kategorikal menjadi tipe data numerik</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_Knn</span> <span class="o">=</span> <span class="n">df_copy</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -799,7 +802,7 @@ Accuracy on testing set (Gini): 1.00
 </div>
 </div>
 </div>
-<p><strong>Melihat tipe data pada setiap fitur</strong></p>
+<p>Setelah itu kita lihat type data pada setiap fitur</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_Knn</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -824,7 +827,7 @@ memory usage: 7.2 KB
 </div>
 </div>
 </div>
-<p><strong>Melihat data terbaru</strong></p>
+<p>Selanjutnya kita lihat data terbaru</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_Knn</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">jumlah_baris</span><span class="p">)</span>
@@ -833,7 +836,7 @@ memory usage: 7.2 KB
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-55160a61-3b35-4e4d-a6bb-6a3ffd4e0302">
+  <div id="df-13499bfa-01d9-4cfc-80c9-0351706196bd">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -965,7 +968,7 @@ memory usage: 7.2 KB
 </table>
 <p>150 rows × 6 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-55160a61-3b35-4e4d-a6bb-6a3ffd4e0302')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-13499bfa-01d9-4cfc-80c9-0351706196bd')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -1016,12 +1019,12 @@ memory usage: 7.2 KB
 
       <script>
         const buttonEl =
-          document.querySelector('#df-55160a61-3b35-4e4d-a6bb-6a3ffd4e0302 button.colab-df-convert');
+          document.querySelector('#df-13499bfa-01d9-4cfc-80c9-0351706196bd button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-55160a61-3b35-4e4d-a6bb-6a3ffd4e0302');
+          const element = document.querySelector('#df-13499bfa-01d9-4cfc-80c9-0351706196bd');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -1042,13 +1045,7 @@ memory usage: 7.2 KB
   </div>
   </div></div>
 </div>
-<p><strong>Melakukan normalisasi data, yaitu mengubah setiap nilai ke dalam rentang antara 0 hingga 1. Kita akan menggunakan metode min-max, yaitu:</strong></p>
-<p><em>x - min / max - min. Terdapat juga rumus-rumus lain yang dapat digunakan, misalnya metode simple feature scaling atau metode z-score. Namun perlu diingat bahwa kolom target tidak akan dinormalisasi (kolom species).</em></p>
-<p><strong>Rumus Metode Min-Max :</strong></p>
-<div class="math notranslate nohighlight">
-\[
-x_{n e w}=\frac{x_{\text {old }}-x_{\min }}{x_{\max }-x_{\min }}
-\]</div>
+<p>Melakukan normalisasi data, yaitu mengubah setiap nilai ke dalam rentang antara 0 hingga 1. Kita akan menggunakan metode min-max, yaitu: x - min / max - min. Terdapat juga rumus-rumus lain yang dapat digunakan, misalnya metode simple feature scaling atau metode z-score. Namun perlu diingat bahwa kolom target tidak akan dinormalisasi (kolom species).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">species_column</span> <span class="o">=</span> <span class="n">df_Knn</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span>
@@ -1056,13 +1053,12 @@ x_{n e w}=\frac{x_{\text {old }}-x_{\min }}{x_{\max }-x_{\min }}
 <span class="n">df_Knn</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_Knn</span> <span class="o">-</span> <span class="n">df_Knn</span><span class="o">.</span><span class="n">min</span><span class="p">())</span><span class="o">/</span><span class="p">(</span><span class="n">df_Knn</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">df_Knn</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
 <span class="n">df_Knn</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">species_column</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">df_Knn</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">jumlah_baris</span><span class="p">)</span>
-     
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-01bdc9df-01cd-4ba0-a2ec-cf4ee88772f1">
+  <div id="df-58c83e7e-16fc-4592-aece-d7d5bc5fe579">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -1182,7 +1178,7 @@ x_{n e w}=\frac{x_{\text {old }}-x_{\min }}{x_{\max }-x_{\min }}
 </table>
 <p>150 rows × 5 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-01bdc9df-01cd-4ba0-a2ec-cf4ee88772f1')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-58c83e7e-16fc-4592-aece-d7d5bc5fe579')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -1233,12 +1229,12 @@ x_{n e w}=\frac{x_{\text {old }}-x_{\min }}{x_{\max }-x_{\min }}
 
       <script>
         const buttonEl =
-          document.querySelector('#df-01bdc9df-01cd-4ba0-a2ec-cf4ee88772f1 button.colab-df-convert');
+          document.querySelector('#df-58c83e7e-16fc-4592-aece-d7d5bc5fe579 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-01bdc9df-01cd-4ba0-a2ec-cf4ee88772f1');
+          const element = document.querySelector('#df-58c83e7e-16fc-4592-aece-d7d5bc5fe579');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -1259,8 +1255,7 @@ x_{n e w}=\frac{x_{\text {old }}-x_{\min }}{x_{\max }-x_{\min }}
   </div>
   </div></div>
 </div>
-<p><strong>Tahapan sebelum kita membagi dataset, pastikan untuk mengacak datanya secara acak.</strong></p>
-<p><em>Menginisialisasi objek knn dari kelas KNeighborsRegressor yang merupakan algoritma K-Nearest Neighbors untuk melakukan regresi. Kemudian, kita melakukan randomisasi indeks dari dataset menggunakan np.random.permutation() dengan seed 1 untuk memastikan hasil yang konsisten.</em></p>
+<p>Menginisialisasi objek knn dari kelas KNeighborsRegressor yang merupakan algoritma K-Nearest Neighbors untuk melakukan regresi. Kemudian, kita melakukan randomisasi indeks dari dataset menggunakan np.random.permutation() dengan seed 1 untuk memastikan hasil yang konsisten.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">()</span>
@@ -1272,8 +1267,7 @@ x_{n e w}=\frac{x_{\text {old }}-x_{\min }}{x_{\max }-x_{\min }}
 </div>
 </div>
 </div>
-<p><strong>Menggunakan 80% data untuk training dan 20% sisanya untuk testing.</strong></p>
-<p><em>Ukuran dataset yang telah diacak dihitung menggunakan atribut shape, kemudian dikalikan dengan 0.80 untuk mendapatkan indeks data terakhir yang akan digunakan untuk melatih model. Hasilnya kemudian disimpan dalam variabel train_index. Dataset shuffled_car_data kemudian dibagi menjadi dua bagian: training data dan testing data.</em></p>
+<p>Kita akan menggunakan 80% data untuk training dan 20% sisanya untuk testing.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">shuffled_car_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.80</span><span class="p">)</span>
@@ -1283,28 +1277,25 @@ x_{n e w}=\frac{x_{\text {old }}-x_{\min }}{x_{\max }-x_{\min }}
 </div>
 </div>
 </div>
-<p><strong>Melatih model dengan data training.</strong></p>
+<p>Melatih model dengan data training.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_data</span><span class="p">[[</span><span class="s1">&#39;SepalLengthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;SepalWidthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;PetalLengthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;PetalWidthCm&#39;</span><span class="p">]],</span> <span class="n">training_data</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">])</span>
-     
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style>#sk-container-id-2 {color: black;background-color: white;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KNeighborsRegressor()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">KNeighborsRegressor</label><div class="sk-toggleable__content"><pre>KNeighborsRegressor()</pre></div></div></div></div></div></div></div>
 </div>
-<p><strong>Memprediksi label (spesies) pada data uji.</strong></p>
+<p>Memprediksi label (spesies) pada data uji.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prediction</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">testing_data</span><span class="p">[[</span><span class="s1">&#39;SepalLengthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;SepalWidthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;PetalLengthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;PetalWidthCm&#39;</span><span class="p">]])</span>
-  
 </pre></div>
 </div>
 </div>
 </div>
-<p><strong>Menghitung akurasi dari model.</strong></p>
-<p><em>Menghitung akurasi model dengan mengukur berapa persen data testing yang berhasil diprediksi dengan (threshold default 0.5.). Threshold dinyatakan sebagai 0.5, yang berarti jika selisih antara prediksi dan nilai aktual dari data pengujian kurang dari atau sama dengan 0,5, maka prediksi dianggap benar.</em></p>
+<p>Menghitung akurasi model dengan mengukur berapa persen data testing yang berhasil diprediksi dengan (threshold default 0.5.). Threshold dinyatakan sebagai 0.5, yang berarti jika selisih antara prediksi dan nilai aktual dari data pengujian kurang dari atau sama dengan 0,5, maka prediksi dianggap benar.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">accuracy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">prediction</span> <span class="o">-</span> <span class="n">testing_data</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mf">0.5</span><span class="p">)</span>
@@ -1320,7 +1311,6 @@ x_{n e w}=\frac{x_{\text {old }}-x_{\min }}{x_{\max }-x_{\min }}
 </div>
 </div>
 <p><strong>3. Naive Bayes</strong></p>
-<p>Import library Naive Bayes</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
@@ -1331,18 +1321,17 @@ x_{n e w}=\frac{x_{\text {old }}-x_{\min }}{x_{\max }-x_{\min }}
 </div>
 </div>
 </div>
-<p><strong>Mengubah tipe data kategorikal menjadi tipe data numerik</strong></p>
+<p><em>Mengubah</em> tipe data kategorikal menjadi tipe data numerik</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_NaiveBayes</span> <span class="o">=</span> <span class="n">df_copy</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
 <span class="n">df_NaiveBayes</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df_NaiveBayes</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">])</span>
-     
 </pre></div>
 </div>
 </div>
 </div>
-<p><strong>Melihat type data pada setiap fitur</strong></p>
+<p>Setelah itu kita lihat type data pada setiap fitur</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_NaiveBayes</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -1367,7 +1356,6 @@ memory usage: 7.2 KB
 </div>
 </div>
 </div>
-<p><strong>Melihat data terbaru</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_NaiveBayes</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">jumlah_baris</span><span class="p">)</span>
@@ -1376,7 +1364,7 @@ memory usage: 7.2 KB
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-c9c36215-330b-4d93-9789-f53a9a823f98">
+  <div id="df-05f04c13-2173-440d-8727-d270781af523">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -1508,7 +1496,7 @@ memory usage: 7.2 KB
 </table>
 <p>150 rows × 6 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-c9c36215-330b-4d93-9789-f53a9a823f98')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-05f04c13-2173-440d-8727-d270781af523')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -1559,12 +1547,12 @@ memory usage: 7.2 KB
 
       <script>
         const buttonEl =
-          document.querySelector('#df-c9c36215-330b-4d93-9789-f53a9a823f98 button.colab-df-convert');
+          document.querySelector('#df-05f04c13-2173-440d-8727-d270781af523 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-c9c36215-330b-4d93-9789-f53a9a823f98');
+          const element = document.querySelector('#df-05f04c13-2173-440d-8727-d270781af523');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -1585,27 +1573,20 @@ memory usage: 7.2 KB
   </div>
   </div></div>
 </div>
-<p><strong>Melakukan normalisasi data, yaitu mengubah setiap nilai ke dalam rentang antara 0 hingga 1. Kita akan menggunakan metode min-max, yaitu:</strong></p>
-<p><strong>x - min / max - min. Terdapat juga rumus-rumus lain yang dapat digunakan, misalnya metode simple feature scaling atau metode z-score. Namun perlu diingat bahwa kolom target tidak akan dinormalisasi (kolom species).</strong></p>
-<p><strong>Rumus Metode Min-Max:</strong></p>
-<div class="math notranslate nohighlight">
-\[
-x_{n e w}=\frac{x_{o l d}-x_{\min }}{x_{\max }-x_{\min }}
-\]</div>
+<p>Melakukan normalisasi data, yaitu mengubah setiap nilai ke dalam rentang antara 0 hingga 1. Kita akan menggunakan metode min-max, yaitu: x - min / max - min. Terdapat juga rumus-rumus lain yang dapat digunakan, misalnya metode simple feature scaling atau metode z-score. Namun perlu diingat bahwa kolom target tidak akan dinormalisasi (kolom species).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">species_column</span> <span class="o">=</span> <span class="n">df_NaiveBayes</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Species_column</span> <span class="o">=</span> <span class="n">df_NaiveBayes</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span>
 <span class="n">df_NaiveBayes</span> <span class="o">=</span> <span class="n">df_NaiveBayes</span><span class="p">[[</span><span class="s1">&#39;SepalLengthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;SepalWidthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;PetalLengthCm&#39;</span><span class="p">,</span> <span class="s1">&#39;PetalWidthCm&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">df_NaiveBayes</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_NaiveBayes</span> <span class="o">-</span> <span class="n">df_NaiveBayes</span><span class="o">.</span><span class="n">min</span><span class="p">())</span><span class="o">/</span><span class="p">(</span><span class="n">df_NaiveBayes</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">df_NaiveBayes</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
-<span class="n">df_NaiveBayes</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">species_column</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_NaiveBayes</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Species_column</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">df_NaiveBayes</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">jumlah_baris</span><span class="p">)</span>
-     
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-c8acb389-d9b9-427e-b760-de99b27f5b14">
+  <div id="df-d4536723-d217-4e69-a3ef-98f1b636ad78">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -1725,7 +1706,7 @@ x_{n e w}=\frac{x_{o l d}-x_{\min }}{x_{\max }-x_{\min }}
 </table>
 <p>150 rows × 5 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-c8acb389-d9b9-427e-b760-de99b27f5b14')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-d4536723-d217-4e69-a3ef-98f1b636ad78')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -1776,12 +1757,12 @@ x_{n e w}=\frac{x_{o l d}-x_{\min }}{x_{\max }-x_{\min }}
 
       <script>
         const buttonEl =
-          document.querySelector('#df-c8acb389-d9b9-427e-b760-de99b27f5b14 button.colab-df-convert');
+          document.querySelector('#df-d4536723-d217-4e69-a3ef-98f1b636ad78 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-c8acb389-d9b9-427e-b760-de99b27f5b14');
+          const element = document.querySelector('#df-d4536723-d217-4e69-a3ef-98f1b636ad78');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -1802,20 +1783,17 @@ x_{n e w}=\frac{x_{o l d}-x_{\min }}{x_{\max }-x_{\min }}
   </div>
   </div></div>
 </div>
-<p><strong>Melakukan pemotongan Data atau Data Slicing.</strong></p>
-<p><em>Pisahkan data menjadi data training dan data test (80/20). Kita dapat dengan mudah melakukan langkah ini menggunakan metode train_test_split() dari sklearn.</em></p>
+<p>Pisahkan data menjadi data training dan data test (80/20). Kita dapat dengan mudah melakukan langkah ini menggunakan metode train_test_split() dari sklearn.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="n">df_NaiveBayes</span><span class="o">.</span><span class="n">values</span><span class="p">[:,:</span><span class="mi">4</span><span class="p">]</span>
 <span class="n">target</span> <span class="o">=</span> <span class="n">df_NaiveBayes</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
 <span class="n">features_train</span><span class="p">,</span> <span class="n">features_test</span><span class="p">,</span> <span class="n">target_train</span><span class="p">,</span> <span class="n">target_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">features</span><span class="p">,</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span>
-     
 </pre></div>
 </div>
 </div>
 </div>
-<p><strong>Implementasi Gaussian Naive Bayes.</strong></p>
-<p><em>Setelah selesai preprocessing data. saatnya menerapkan algoritma pembelajaran mesin atau machine learning. Kita akan menggunakan modul GaussianNB sklearn.</em></p>
+<p>Setelah selesai preprocessing data. saatnya menerapkan algoritma pembelajaran mesin atau machine learning. Kita akan menggunakan modul GaussianNB sklearn.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
@@ -1825,7 +1803,7 @@ x_{n e w}=\frac{x_{o l d}-x_{\min }}{x_{\max }-x_{\min }}
 </div>
 </div>
 </div>
-<p><strong>Akurasi model Gaussian Naive Bayes</strong></p>
+<p>Akurasi model Gaussian Naive Bayes</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">target_test</span><span class="p">,</span> <span class="n">target_pred</span><span class="p">,</span> <span class="n">normalize</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
